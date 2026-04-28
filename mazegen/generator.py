@@ -1,3 +1,15 @@
+# *************************************************************************** #
+#                                                                             #
+#                                                         :::      ::::::::   #
+#    generator.py                                       :+:      :+:    :+:   #
+#                                                     +:+ +:+         +:+     #
+#    By: dcheng <dcheng@student.42kl.edu.my>        +#+  +:+       +#+        #
+#                                                 +#+#+#+#+#+   +#+           #
+#    Created: 2026/04/28 12:21:34 by dcheng            #+#    #+#             #
+#    Updated: 2026/04/28 12:21:34 by dcheng           ###   ########.fr       #
+#                                                                             #
+# *************************************************************************** #
+
 from typing import List, Optional, Tuple
 from .maze_generator import MazeGenerator
 

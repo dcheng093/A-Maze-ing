@@ -1,3 +1,15 @@
+# *************************************************************************** #
+#                                                                             #
+#                                                         :::      ::::::::   #
+#    a_maze_ing.py                                      :+:      :+:    :+:   #
+#                                                     +:+ +:+         +:+     #
+#    By: dcheng <dcheng@student.42kl.edu.my>        +#+  +:+       +#+        #
+#                                                 +#+#+#+#+#+   +#+           #
+#    Created: 2026/04/28 12:21:09 by dcheng            #+#    #+#             #
+#    Updated: 2026/04/28 12:21:09 by dcheng           ###   ########.fr       #
+#                                                                             #
+# *************************************************************************** #
+
 from mazegen.maze_generator import MazeGenerator
 from mazegen.renderer import render_ascii, apply_42, lock_42_walls
 from mazegen.solver import solve, path_to_coords
