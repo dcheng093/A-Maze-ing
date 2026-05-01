@@ -16,7 +16,11 @@ from mazegen.solver import solve, path_to_coords
 from mazegen.parser import parse_config, Config
 from mazegen.output_writer import write_maze
 import sys
+import os
 
+def clear_terminal():
+    # "nt" for windows, others like "posix" are for mac/linux
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def build_maze(config: Config) -> tuple[
             list[list[int]],
@@ -95,6 +99,7 @@ def main() -> None:
 
             elif cmd == "r":
                 grid, path, coords, special = build_maze(config)
+                clear_terminal()
 
             elif cmd == "p":
                 show_path = not show_path
