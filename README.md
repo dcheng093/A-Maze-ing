@@ -32,7 +32,7 @@ Table of contents
 
 
 ## Description
-A-Maze-ing is a terminal-based maze generator and solver written in Python 3.10+. The program reads a configuration file to set up maze parameters, generates a maze using either a Depth-First Search (DFS), embeds the 42 logo in the center of the maze, solves it using Breadth-FIrst-Search (BFS), and renders it in the terminal with ANSI colors and block characters.
+A-Maze-ing is a terminal-based maze generator and solver written in Python 3.10+. The program reads a configuration file to set up maze parameters, generates a maze using Depth-First Search (DFS), embeds the 42 logo in the center of the maze, solves it using Breadth-First-Search (BFS), and renders it in the terminal with ANSI colors and block characters.
 The project also provides a reusable Python package `mazegen` that exposes the `MazeGenerator` class for use in any Python project.
 
 **Key features:**
