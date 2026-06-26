@@ -34,7 +34,7 @@ class MazeGenerator:
         self.height = height
         self.random = random.Random(seed)
         self.perfect = perfect
-        self.forbidden: set[tuple[int, int]] = set()
+        self.special_cells: set[tuple[int, int]] = set()
         self.grid: list[list[int]] = [
             [N | E | S | W for _ in range(width)]
             for _ in range(height)
@@ -43,7 +43,7 @@ class MazeGenerator:
     def generate(self) -> list[list[int]]:
         """generate and return the maze grid"""
         visited = [[False] * self.width for _ in range(self.height)]
-        self.forbidden = apply_42(self.grid)
+        self.special_cells = apply_42(self.grid)
         start_x = self.random.randrange(self.width)
         start_y = self.random.randrange(self.height)
         self.dfs(start_x, start_y, visited)
@@ -59,7 +59,7 @@ class MazeGenerator:
             nx = x + DX[direction]
             ny = y + DY[direction]
             if 0 <= nx < self.width and 0 <= ny < self.height:
-                if (nx, ny) in self.forbidden:
+                if (nx, ny) in self.special_cells:
                     continue
                 if not visited[ny][nx]:
                     self.grid[y][x] &= ~direction

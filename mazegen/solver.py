@@ -64,7 +64,8 @@ def solve(
                         visited.add((nx, ny))
                         queue.append((nx, ny))
                         parent[(nx, ny)] = ((x, y), direction)
-
+    if end not in parent and end != start:
+        raise ValueError("Maze has no solution")
     # reconstruct
     path = []
     current = end
