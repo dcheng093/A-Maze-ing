@@ -11,7 +11,6 @@
 # *************************************************************************** #
 
 import random
-from typing import List
 from .renderer import apply_42
 
 N, E, S, W = 1, 2, 4, 8
@@ -36,12 +35,12 @@ class MazeGenerator:
         self.random = random.Random(seed)
         self.perfect = perfect
         self.forbidden: set[tuple[int, int]] = set()
-        self.grid: List[List[int]] = [
+        self.grid: list[list[int]] = [
             [N | E | S | W for _ in range(width)]
             for _ in range(height)
         ]
 
-    def generate(self) -> List[List[int]]:
+    def generate(self) -> list[list[int]]:
         """generate and return the maze grid"""
         visited = [[False] * self.width for _ in range(self.height)]
         self.forbidden = apply_42(self.grid)
@@ -50,7 +49,7 @@ class MazeGenerator:
         self.dfs(start_x, start_y, visited)
         return self.grid
 
-    def dfs(self, x: int, y: int, visited: List[List[bool]]) -> None:
+    def dfs(self, x: int, y: int, visited: list[list[bool]]) -> None:
         """depth-first search maze carving"""
         visited[y][x] = True
         directions = [N, E, S, W]

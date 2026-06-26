@@ -10,14 +10,12 @@
 #                                                                             #
 # *************************************************************************** #
 
-from typing import List, Tuple
-
 
 def write_maze(
         filename: str,
-        grid: List[List[int]],
-        entry: Tuple[int, int],
-        exit: Tuple[int, int],
+        grid: list[list[int]],
+        entry: tuple[int, int],
+        exit: tuple[int, int],
         path: str,
         ) -> None:
     """write maze in required hex format"""

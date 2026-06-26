@@ -11,7 +11,7 @@
 # *************************************************************************** #
 
 from collections import deque
-from typing import List, Tuple, Dict
+
 
 N, E, S, W = 1, 2, 4, 8
 DX = {E: 1, W: -1, N: 0, S: 0}
@@ -22,8 +22,8 @@ DIR_CHAR = {N: "N", E: "E", S: "S", W: "W"}
 
 
 def path_to_coords(
-        start: Tuple[int, int],
-        path: str) -> List[Tuple[int, int]]:
+        start: tuple[int, int],
+        path: str) -> list[tuple[int, int]]:
     x, y = start
     coords = [(x, y)]
 
@@ -36,9 +36,9 @@ def path_to_coords(
 
 
 def solve(
-        grid: List[List[int]],
-        start: Tuple[int, int],
-        end: Tuple[int, int]
+        grid: list[list[int]],
+        start: tuple[int, int],
+        end: tuple[int, int]
         ) -> str:
     """solves maze using bfs"""
     width = len(grid[0])
@@ -46,7 +46,7 @@ def solve(
 
     queue = deque([start])
     visited = set([start])
-    parent: Dict[Tuple[int, int], Tuple[Tuple[int, int], int]] = {}
+    parent: dict[tuple[int, int], tuple[tuple[int, int], int]] = {}
 
     while queue:
         x, y = queue.popleft()

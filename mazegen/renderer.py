@@ -10,7 +10,7 @@
 #                                                                             #
 # *************************************************************************** #
 
-from typing import List, Optional, Tuple
+from typing import Optional
 COLORS = [
     "\033[0m",   # white
     "\033[94m",  # blue
@@ -35,7 +35,7 @@ FOUR_TWO_PATTERN = [
 ]
 
 
-def apply_42(grid: List[List[int]]) -> set[tuple[int, int]]:
+def apply_42(grid: list[list[int]]) -> set[tuple[int, int]]:
     height = len(grid)
     width = len(grid[0])
 
@@ -55,7 +55,7 @@ def apply_42(grid: List[List[int]]) -> set[tuple[int, int]]:
     return cells
 
 
-def lock_42_walls(grid: List[List[int]], cells: set[tuple[int, int]]) -> None:
+def lock_42_walls(grid: list[list[int]], cells: set[tuple[int, int]]) -> None:
     N, E, S, W = 1, 2, 4, 8
 
     for x, y in cells:
@@ -63,8 +63,8 @@ def lock_42_walls(grid: List[List[int]], cells: set[tuple[int, int]]) -> None:
 
 
 def render_ascii(
-                grid: List[List[int]],
-                path_coords: Optional[List[Tuple[int, int]]] = None,
+                grid: list[list[int]],
+                path_coords: Optional[list[tuple[int, int]]] = None,
                 color_mode: int = 0,
                 special: Optional[set[tuple[int, int]]] = None
                 ) -> None:

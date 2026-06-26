@@ -10,7 +10,7 @@
 #                                                                             #
 # *************************************************************************** #
 
-from typing import List, Optional, Tuple
+from typing import Optional
 from .maze_generator import MazeGenerator
 
 
@@ -30,7 +30,7 @@ class Generator:
     ) -> None:
         self._engine = MazeGenerator(width, height, seed, perfect)
 
-    def generate(self) -> List[List[int]]:
+    def generate(self) -> list[list[int]]:
         """
         generate a maze grid
         returns:
@@ -38,7 +38,7 @@ class Generator:
         """
         return self._engine.generate()
 
-    def solve(self, start: Tuple[int, int], end: Tuple[int, int]) -> str:
+    def solve(self, start: tuple[int, int], end: tuple[int, int]) -> str:
         """
         optional convenience wrapper if you want
         (you can also keep solver separate)

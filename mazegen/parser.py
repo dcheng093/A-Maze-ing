@@ -11,15 +11,14 @@
 # *************************************************************************** #
 
 from dataclasses import dataclass
-from typing import Tuple
 
 
 @dataclass
 class Config:
     width: int
     height: int
-    entry: Tuple[int, int]
-    exit: Tuple[int, int]
+    entry: tuple[int, int]
+    exit: tuple[int, int]
     output_file: str
     perfect: bool
 
