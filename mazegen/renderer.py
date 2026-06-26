@@ -55,7 +55,7 @@ def apply_42(grid: List[List[int]]) -> set[tuple[int, int]]:
     return cells
 
 
-def lock_42_walls(grid, cells: set[tuple[int, int]]) -> None:
+def lock_42_walls(grid: List[List[int]], cells: set[tuple[int, int]]) -> None:
     N, E, S, W = 1, 2, 4, 8
 
     for x, y in cells:

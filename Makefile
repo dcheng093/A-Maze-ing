@@ -12,9 +12,13 @@
 
 NAME = a_maze_ing.py
 CONFIG_FILE = default_config.txt
+CUSTOM_CONFIG = config.txt
 
 run:
 	@python3 $(NAME) $(CONFIG_FILE)
+
+custom:
+	@python3 $(NAME) $(CUSTOM_CONFIG)
 
 install:
 	pip install flake8 mypy
@@ -34,4 +38,4 @@ clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	rm -rf .mypy_cache build dist *.egg-info
 
-.PHONY: install run debug lint lint-strict clean
+.PHONY: install run debug lint lint-strict clean poop

@@ -18,9 +18,11 @@ from mazegen.output_writer import write_maze
 import sys
 import os
 
-def clear_terminal():
+
+def clear_terminal() -> None:
     # "nt" for windows, others like "posix" are for mac/linux
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def build_maze(config: Config) -> tuple[
             list[list[int]],
@@ -32,7 +34,7 @@ def build_maze(config: Config) -> tuple[
     width = config.width
     height = config.height
 
-    def in_bounds(p):
+    def in_bounds(p: tuple[int, int]) -> bool:
         x, y = p
         return 0 <= x < width and 0 <= y < height
 
