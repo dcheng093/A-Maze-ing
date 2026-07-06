@@ -21,6 +21,7 @@ class Config:
     exit: tuple[int, int]
     output_file: str
     perfect: bool
+    seed: int | None = None
 
 
 def parse_config(filepath: str) -> Config:
@@ -71,6 +72,8 @@ def parse_config(filepath: str) -> Config:
         output_file = data["OUTPUT_FILE"]
 
         perfect = data["PERFECT"].lower() == "true"
+        seed_value = data.get("SEED")
+        seed = int(seed_value) if seed_value is not None else None
 
     except Exception as e:
         raise ValueError(f"Invalid config values: {e}")
@@ -86,4 +89,4 @@ def parse_config(filepath: str) -> Config:
         if not (0 <= x < width and 0 <= y < height):
             raise ValueError(f"Point {(x, y)} is out of bounds")
 
-    return Config(width, height, entry, exit_, output_file, perfect)
+    return Config(width, height, entry, exit_, output_file, perfect, seed)

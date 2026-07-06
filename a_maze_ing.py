@@ -58,7 +58,7 @@ def build_maze(config: Config) -> tuple[
         gen = MazeGenerator(
             width,
             height,
-            seed=None,
+            seed=config.seed,
             perfect=config.perfect,
         )
         grid = gen.generate()

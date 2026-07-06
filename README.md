@@ -59,7 +59,10 @@ Compile the project using `make`:
 make run
 ```
 
-yeah that's it
+yeah that's it, you can also run it with different configs by manually executing the python file along with the config.txt as the 1st argument
+```bash
+python3.1x a_maze_ing.py test_config.txt
+```
 
 ### Other Commands
 
