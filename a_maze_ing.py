@@ -86,6 +86,18 @@ def main() -> None:
 
         grid, path, coords, special = build_maze(config)
 
+        try:
+            write_maze(
+                config.output_file,
+                grid,
+                config.entry,
+                config.exit,
+                path,
+            )
+        except RuntimeError as e:
+            print(f"Error: {e}")
+            return
+
         show_path = True
         color_mode = 0
 
@@ -109,6 +121,19 @@ def main() -> None:
 
             elif cmd == "r":
                 grid, path, coords, special = build_maze(config)
+
+                try:
+                    write_maze(
+                        config.output_file,
+                        grid,
+                        config.entry,
+                        config.exit,
+                        path,
+                    )
+                except RuntimeError as e:
+                    print(f"Error: {e}")
+                    break
+
                 clear_terminal()
 
             elif cmd == "p":
@@ -120,15 +145,6 @@ def main() -> None:
 
             else:
                 print("Unknown command")
-
-        # write final maze output only upon clean exit
-        write_maze(
-            config.output_file,
-            grid,
-            config.entry,
-            config.exit,
-            path,
-        )
 
     except ValueError as e:
         print("Error:", e)
