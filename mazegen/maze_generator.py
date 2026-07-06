@@ -44,9 +44,12 @@ class MazeGenerator:
         ]
 
     def generate(self) -> list[list[int]]:
-        """Generate and return the maze grid."""
+        """generate and return the maze grid"""
         visited = [[False] * self.width for _ in range(self.height)]
-        self.special_cells = apply_42(self.grid)
+        if self.width > 12 or self.height > 7:
+            self.special_cells = apply_42(self.grid)
+        else:
+            print("Maze too small for 42 pattern")
         start_x = self.random.randrange(self.width)
         start_y = self.random.randrange(self.height)
 
@@ -94,7 +97,7 @@ class MazeGenerator:
             stack.append((nx, ny, OPPOSITE[direction]))
 
     def add_loops(self) -> None:
-        """add extra corridors while keeping the maze pac-man ready."""
+        """add extra corridors while keeping the maze pac-man ready"""
         target_loops = max(2, min(8, (self.width * self.height) // 300))
         target_dead_ends = 2
         attempts = 0

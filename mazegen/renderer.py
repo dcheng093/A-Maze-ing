@@ -39,9 +39,6 @@ def apply_42(grid: list[list[int]]) -> set[tuple[int, int]]:
     height = len(grid)
     width = len(grid[0])
 
-    if width < 12 or height < 7:
-        raise ValueError("Maze too small for 42 pattern")
-
     cx = width // 2 - 4
     cy = height // 2 - 2
 
