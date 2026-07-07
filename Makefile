@@ -12,7 +12,7 @@
 
 NAME = a_maze_ing.py
 CONFIG_FILE = default_config.txt
-CUSTOM_CONFIG = config.txt
+CUSTOM_CONFIG = config_big.txt
 TEST = config_small.txt
 
 run:

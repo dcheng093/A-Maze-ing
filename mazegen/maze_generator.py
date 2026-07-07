@@ -102,24 +102,48 @@ class MazeGenerator:
             visited[ny][nx] = True
             stack.append((nx, ny, OPPOSITE[direction]))
 
+    def _find_dead_ends(self) -> list[tuple[int, int]]:
+        result = []
+
+        for y in range(self.height):
+            for x in range(self.width):
+                if (x, y) in self.special_cells:
+                    continue
+
+                if self._cell_openings(x, y) == 1:
+                    result.append((x, y))
+
+        return result
+
+    def _dead_end_walls(self, x: int, y: int) -> list[int]:
+        walls = []
+
+        for direction in DIRECTIONS:
+            nx = x + DX[direction]
+            ny = y + DY[direction]
+
+            if not self._in_bounds(nx, ny):
+                continue
+
+            if (nx, ny) in self.special_cells:
+                continue
+
+            # only consider closed walls
+            if self.grid[y][x] & direction:
+                walls.append(direction)
+
+        return walls
+
     def add_loops(self) -> None:
-        """add extra corridors while keeping the maze pac-man ready"""
-        target_loops = max(2, min(8, (self.width * self.height) // 300))
-        target_dead_ends = 0 if self.width <= 14 and self.height <= 8 else 2
-        attempts = 0
+        """remove dead ends by braiding the maze"""
+        dead_ends = self._find_dead_ends()
 
-        while attempts < 400:
-            if self._loop_count() >= target_loops and \
-                    self._dead_end_count() <= target_dead_ends:
-                break
+        for x, y in dead_ends:
+            edges = self._dead_end_walls(x, y)
 
-            edge = self._pick_best_edge()
-            if edge is None:
-                break
-
-            x, y, direction = edge
-            self._open_passage(x, y, direction)
-            attempts += 1
+            if edges:
+                edge = self.random.choice(edges)
+                self._open_passage(x, y, edge)
 
     def _pick_best_edge(self) -> tuple[int, int, int] | None:
         candidates: list[tuple[int, int, int, int]] = []
