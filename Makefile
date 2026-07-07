@@ -13,12 +13,16 @@
 NAME = a_maze_ing.py
 CONFIG_FILE = default_config.txt
 CUSTOM_CONFIG = config.txt
+TEST = config_small.txt
 
 run:
 	@python3 $(NAME) $(CONFIG_FILE)
 
 custom:
 	@python3 $(NAME) $(CUSTOM_CONFIG)
+
+test:
+	@python3 $(NAME) $(TEST)
 
 install:
 	pip install flake8 mypy
