@@ -17,6 +17,7 @@ from mazegen.parser import parse_config, Config
 from mazegen.output_writer import write_maze
 import sys
 import os
+N, E, S, W = 1, 2, 4, 8
 
 
 def clear_terminal() -> None:
@@ -48,7 +49,7 @@ def build_maze(config: Config) -> tuple[
     temp_grid = [[0 for _ in range(width)]
                  for _ in range(height)
                  ]
-    logo_cells = apply_42(temp_grid) if width > 12 and height > 7 else set()
+    logo_cells = apply_42(temp_grid)
     if config.entry in logo_cells:
         raise ValueError("Entry cannot be inside 42 logo")
     if config.exit in logo_cells:
@@ -72,6 +73,33 @@ def build_maze(config: Config) -> tuple[
         return grid, path, coords, special_cells
 
 
+def move_player(
+    grid: list[list[int]],
+    player: tuple[int, int],
+    direction: str,
+) -> tuple[int, int]:
+
+    x, y = player
+
+    moves = {
+        "w": (0, -1, N),
+        "s": (0, 1, S),
+        "a": (-1, 0, W),
+        "d": (1, 0, E),
+    }
+
+    if direction not in moves:
+        return player
+
+    dx, dy, wall = moves[direction]
+
+    # wall exists, cannot move
+    if grid[y][x] & wall:
+        return player
+
+    return (x + dx, y + dy)
+
+
 def main() -> None:
     try:
         if len(sys.argv) > 2:
@@ -85,6 +113,8 @@ def main() -> None:
         config = parse_config(config_file)
 
         grid, path, coords, special = build_maze(config)
+        player = config.entry
+        current_coords = coords.copy()
 
         try:
             write_maze(
@@ -103,11 +133,14 @@ def main() -> None:
 
         while True:
             # render current state
+            clear_terminal()
             render_ascii(
                         grid,
-                        coords if show_path else None,
+                        current_coords if show_path else None,
                         color_mode,
-                        special
+                        player,
+                        special,
+                        config.exit
                         )
 
             print("\nSolution (N/E/S/W):")
@@ -115,12 +148,33 @@ def main() -> None:
 
             print("\n[r] regenerate  [p] toggle path  [c] colour  [q] quit")
             cmd = input("> ").strip().lower()
+            if cmd in ["w", "s", "a", "d"]:
+                player = move_player(grid, player, cmd)
+
+            if player in current_coords:
+                index = current_coords.index(player)
+                current_coords = current_coords[index + 1:]
+
+                if player == config.exit:
+                    clear_terminal()
+                    render_ascii(
+                        grid,
+                        None,
+                        color_mode,
+                        player,
+                        special,
+                        config.exit
+                    )
+                    print("\033[92m\nYOU WON!!!\033[92m")
+                    break
 
             if cmd == "q":
                 break
 
             elif cmd == "r":
                 grid, path, coords, special = build_maze(config)
+                player = config.entry
+                current_coords = coords.copy()
 
                 try:
                     write_maze(
@@ -142,9 +196,6 @@ def main() -> None:
             elif cmd == "c":
                 color_mode = (color_mode + 1) % 4
                 print(f"Colour mode: {color_mode}")
-
-            else:
-                print("Unknown command")
 
     except ValueError as e:
         print("Error:", e)

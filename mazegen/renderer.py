@@ -64,7 +64,9 @@ def render_ascii(
                 grid: list[list[int]],
                 path_coords: Optional[list[tuple[int, int]]] = None,
                 color_mode: int = 0,
-                special: Optional[set[tuple[int, int]]] = None
+                player: Optional[tuple[int, int]] = None,
+                special: Optional[set[tuple[int, int]]] = None,
+                exit_pos: Optional[tuple[int, int]] = None
                 ) -> None:
     """renders maze using ascii characters"""
     height = len(grid)
@@ -79,7 +81,11 @@ def render_ascii(
 
         for x in range(width):
             is_42 = special and (x, y) in special
-            if is_42:
+            if player == (x, y):
+                line1 += " P "
+            elif exit_pos == (x, y):
+                line1 += f"{COLORS[3]} X {reset}"
+            elif is_42:
                 line1 += f"{COLORS[3]}███{reset}"
             elif path_coords and (x, y) in path_coords:
                 line1 += f"{COLORS[4]} . {reset}"

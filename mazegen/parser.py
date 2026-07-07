@@ -72,6 +72,10 @@ def parse_config(filepath: str) -> Config:
         output_file = data["OUTPUT_FILE"]
 
         perfect = data["PERFECT"].lower() == "true"
+
+        if not perfect:
+            entry = (width // 2, height // 2)
+
         seed_value = data.get("SEED")
         seed = int(seed_value) if seed_value is not None else None
 

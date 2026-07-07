@@ -46,11 +46,13 @@ class MazeGenerator:
     def generate(self) -> list[list[int]]:
         """generate and return the maze grid"""
         visited = [[False] * self.width for _ in range(self.height)]
+
         if self.width > 12 and self.height > 7:
             self.special_cells = apply_42(self.grid)
         else:
             self.special_cells = set()
             self._warn_small_maze()
+
         start_x = self.random.randrange(self.width)
         start_y = self.random.randrange(self.height)
 
@@ -59,10 +61,43 @@ class MazeGenerator:
             start_y = self.random.randrange(self.height)
 
         self._carve_with_stack(start_x, start_y, visited)
+
         if not self.perfect:
+            self._ensure_pacman_cells()
             self.add_loops()
+
         self._apply_special_cells()
+
         return self.grid
+
+    def _ensure_pacman_cells(self) -> None:
+        """ensure corners and centre are open in Pac-Man mode"""
+
+        required_cells = [
+            (0, 0),
+            (self.width - 1, 0),
+            (0, self.height - 1),
+            (self.width - 1, self.height - 1),
+            (self.width // 2, self.height // 2),
+        ]
+
+        for x, y in required_cells:
+            if (x, y) in self.special_cells:
+                continue
+
+            # already reachable
+            if self._cell_openings(x, y) > 0:
+                continue
+
+            # open a random wall
+            walls = self._dead_end_walls(x, y)
+
+            if walls:
+                self._open_passage(
+                    x,
+                    y,
+                    self.random.choice(walls)
+                )
 
     def _warn_small_maze(self) -> None:
         """emit a clear warning when the 42 pattern cannot be applied"""
