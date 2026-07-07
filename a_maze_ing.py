@@ -48,7 +48,7 @@ def build_maze(config: Config) -> tuple[
     temp_grid = [[0 for _ in range(width)]
                  for _ in range(height)
                  ]
-    logo_cells = apply_42(temp_grid)
+    logo_cells = apply_42(temp_grid) if width > 12 and height > 7 else set()
     if config.entry in logo_cells:
         raise ValueError("Entry cannot be inside 42 logo")
     if config.exit in logo_cells:

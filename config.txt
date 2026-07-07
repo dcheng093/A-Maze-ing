@@ -1,7 +1,7 @@
 # Maze configuration
-WIDTH=1000
-HEIGHT=1000
+WIDTH=50
+HEIGHT=40
 ENTRY=0,0
 EXIT=39,25
-OUTPUT_FILE=output_maze.txt
+OUTPUT_FILE=maze_big.txt
 PERFECT=False

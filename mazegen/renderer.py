@@ -19,6 +19,7 @@ COLORS = [
     "\033[33m",  # yellow
 ]
 N, E, S, W = 1, 2, 4, 8
+OPPOSITE = {N: S, S: N, E: W, W: E}
 FOUR_TWO_PATTERN = [
     # 4
     (0, 0), (0, 1), (0, 2),

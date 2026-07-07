@@ -11,7 +11,7 @@
 # *************************************************************************** #
 
 import random
-from .renderer import apply_42
+from .renderer import apply_42, lock_42_walls
 
 N, E, S, W = 1, 2, 4, 8
 
@@ -46,10 +46,11 @@ class MazeGenerator:
     def generate(self) -> list[list[int]]:
         """generate and return the maze grid"""
         visited = [[False] * self.width for _ in range(self.height)]
-        if self.width > 12 or self.height > 7:
+        if self.width > 12 and self.height > 7:
             self.special_cells = apply_42(self.grid)
         else:
-            print("Maze too small for 42 pattern")
+            self.special_cells = set()
+            self._warn_small_maze()
         start_x = self.random.randrange(self.width)
         start_y = self.random.randrange(self.height)
 
@@ -60,7 +61,12 @@ class MazeGenerator:
         self._carve_with_stack(start_x, start_y, visited)
         if not self.perfect:
             self.add_loops()
+        self._apply_special_cells()
         return self.grid
+
+    def _warn_small_maze(self) -> None:
+        """emit a clear warning when the 42 pattern cannot be applied"""
+        print("\033[31mWARNING: Maze too small for 42 pattern\033[0m")
 
     def _carve_with_stack(self, start_x: int, start_y: int,
                           visited: list[list[bool]]) -> None:
@@ -99,7 +105,7 @@ class MazeGenerator:
     def add_loops(self) -> None:
         """add extra corridors while keeping the maze pac-man ready"""
         target_loops = max(2, min(8, (self.width * self.height) // 300))
-        target_dead_ends = 2
+        target_dead_ends = 0 if self.width <= 14 and self.height <= 8 else 2
         attempts = 0
 
         while attempts < 400:
@@ -176,6 +182,10 @@ class MazeGenerator:
         ny = y + DY[direction]
         self.grid[y][x] &= ~direction
         self.grid[ny][nx] &= ~OPPOSITE[direction]
+
+    def _apply_special_cells(self) -> None:
+        if self.special_cells:
+            lock_42_walls(self.grid, self.special_cells)
 
     def _in_bounds(self, x: int, y: int) -> bool:
         return 0 <= x < self.width and 0 <= y < self.height

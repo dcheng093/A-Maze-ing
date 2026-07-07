@@ -38,4 +38,9 @@ clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	rm -rf .mypy_cache build dist *.egg-info
 
+fclean:
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	rm -rf .mypy_cache build dist *.egg-info
+	rm -rf maze_*.txt
+
 .PHONY: install run debug lint lint-strict clean poop
