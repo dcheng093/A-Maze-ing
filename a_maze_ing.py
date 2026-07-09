@@ -146,7 +146,8 @@ def main() -> None:
             print("\nSolution (N/E/S/W):")
             print(path)
 
-            print("\n[r] regenerate  [p] toggle path  [c] colour  [q] quit")
+            print("\n[r] regenerate  [p] toggle path  "
+                  "[c] colour  [q] quit  [w, a, s, d] controls")
             cmd = input("> ").strip().lower()
             if cmd in ["w", "s", "a", "d"]:
                 player = move_player(grid, player, cmd)
