@@ -36,7 +36,7 @@ A-Maze-ing is a terminal-based maze generator and solver written in Python 3.10+
 The project also provides a reusable Python package `mazegen` that exposes the `MazeGenerator` class for use in any Python project.
 
 **Key features:**
-- Maze generation with DFS (recursive backtracker)
+- Maze generation with DFS (iterative stack)
 - Embedded 42 in the maze's center
 - BFS pathfinding to find the shortest solution
 - Perfect or imperfect maze modes
@@ -111,7 +111,7 @@ Lines starting with `#` are treated as comments and ignored.
 
 ## Maze Generation (DFS Backtracking)
 
-The maze is generated using a **Depth-First Search (DFS)** algorithm, also known as the *recursive backtracker*. This approach creates long, winding paths and ensures full connectivity across the maze.
+The maze is generated using a **Depth-First Search (DFS)** algorithm, also known as the *iterative stack*. This approach creates long, winding paths and ensures full connectivity across the maze.
 
 The algorithm proceeds as follows:
 
@@ -279,4 +279,4 @@ Final result:
 
 ## Use of AI
 
-AI was used to help debug my code and adjust it to comply with mypy's restrictions as well as helping me find extra edge cases
+AI was used to help debug my code and adjust it to comply with mypy's restrictions as well as helping us find extra edge cases
