@@ -28,7 +28,7 @@ class MazeGenerator:
         width: int,
         height: int,
         seed: int | None = None,
-        perfect: bool = True,
+        perfect: bool = False,
     ):
         if width <= 0 or height <= 0:
             raise ValueError("Maze dimensions must be positive")
@@ -179,55 +179,6 @@ class MazeGenerator:
             if edges:
                 edge = self.random.choice(edges)
                 self._open_passage(x, y, edge)
-
-    def _pick_best_edge(self) -> tuple[int, int, int] | None:
-        candidates: list[tuple[int, int, int, int]] = []
-        seen: set[tuple[tuple[int, int], tuple[int, int]]] = set()
-
-        for y in range(self.height):
-            for x in range(self.width):
-                if (x, y) in self.special_cells:
-                    continue
-                for direction in DIRECTIONS:
-                    nx = x + DX[direction]
-                    ny = y + DY[direction]
-                    if not self._in_bounds(nx, ny):
-                        continue
-                    if (nx, ny) in self.special_cells:
-                        continue
-                    if self.grid[y][x] & direction:
-                        first = (x, y)
-                        second = (nx, ny)
-                        edge_key = (first, second) if first < second else (
-                            second, first
-                        )
-                        if edge_key in seen:
-                            continue
-                        seen.add(edge_key)
-                        score = self._edge_score(x, y, nx, ny)
-                        candidates.append((score, x, y, direction))
-
-        if not candidates:
-            return None
-
-        candidates.sort(key=lambda item: item[0], reverse=True)
-        best_score = candidates[0][0]
-        best_candidates = [
-            item[1:] for item in candidates if item[0] == best_score
-            ]
-        self.random.shuffle(best_candidates)
-        return best_candidates[0]
-
-    def _edge_score(self, x: int, y: int, nx: int, ny: int) -> int:
-        a_openings = self._cell_openings(x, y)
-        b_openings = self._cell_openings(nx, ny)
-        if a_openings == 1 and b_openings == 1:
-            return 100
-        if a_openings == 1 or b_openings == 1:
-            return 50
-        if a_openings <= 2 and b_openings <= 2:
-            return 10
-        return 0
 
     def _cell_openings(self, x: int, y: int) -> int:
         openings = 0
