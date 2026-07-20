@@ -29,7 +29,7 @@ class MazeGenerator:
         height: int,
         seed: int | None = None,
         perfect: bool = False,
-    ):
+    ) -> None:
         if width <= 0 or height <= 0:
             raise ValueError("Maze dimensions must be positive")
 
