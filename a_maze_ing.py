@@ -73,33 +73,6 @@ def build_maze(config: Config) -> tuple[
         return grid, path, coords, special_cells
 
 
-def move_player(
-    grid: list[list[int]],
-    player: tuple[int, int],
-    direction: str,
-) -> tuple[int, int]:
-
-    x, y = player
-
-    moves = {
-        "w": (0, -1, N),
-        "s": (0, 1, S),
-        "a": (-1, 0, W),
-        "d": (1, 0, E),
-    }
-
-    if direction not in moves:
-        return player
-
-    dx, dy, wall = moves[direction]
-
-    # wall exists, cannot move
-    if grid[y][x] & wall:
-        return player
-
-    return (x + dx, y + dy)
-
-
 def main() -> None:
     try:
         if len(sys.argv) > 2:
@@ -147,27 +120,8 @@ def main() -> None:
             print(path)
 
             print("\n[r] regenerate  [p] toggle path  "
-                  "[c] colour  [q] quit  [w, a, s, d] controls")
+                  "[c] colour  [q] quit")
             cmd = input("> ").strip().lower()
-            if cmd in ["w", "s", "a", "d"]:
-                player = move_player(grid, player, cmd)
-
-            if player in current_coords:
-                index = current_coords.index(player)
-                current_coords = current_coords[index + 1:]
-
-                if player == config.exit:
-                    clear_terminal()
-                    render_ascii(
-                        grid,
-                        None,
-                        color_mode,
-                        player,
-                        special,
-                        config.exit
-                    )
-                    print("\033[92m\nYOU WON!!!\033[92m")
-                    break
 
             if cmd == "q":
                 break
