@@ -37,6 +37,7 @@ FOUR_TWO_PATTERN = [
 
 
 def apply_42(grid: list[list[int]]) -> set[tuple[int, int]]:
+    """finds where the 42 logo should be in the grid and applies it"""
     height = len(grid)
     width = len(grid[0])
 
