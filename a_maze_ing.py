@@ -25,6 +25,11 @@ def clear_terminal() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
+def _warn_small_maze() -> None:
+    """emit a clear warning when the 42 pattern cannot be applied"""
+    print("\033[31mWARNING: Maze too small for 42 pattern\033[0m")
+
+
 def build_maze(config: Config) -> tuple[
             list[list[int]],
             str,
@@ -107,6 +112,8 @@ def main() -> None:
         while True:
             # render current state
             clear_terminal()
+            if config.width < 12 and config.height < 7:
+                _warn_small_maze()
             render_ascii(
                         grid,
                         current_coords if show_path else None,

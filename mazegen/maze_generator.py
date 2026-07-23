@@ -51,7 +51,6 @@ class MazeGenerator:
             self.special_cells = apply_42(self.grid)
         else:
             self.special_cells = set()
-            self._warn_small_maze()
 
         start_x = self.random.randrange(self.width)
         start_y = self.random.randrange(self.height)
@@ -98,10 +97,6 @@ class MazeGenerator:
                     y,
                     self.random.choice(walls)
                 )
-
-    def _warn_small_maze(self) -> None:
-        """emit a clear warning when the 42 pattern cannot be applied"""
-        print("\033[31mWARNING: Maze too small for 42 pattern\033[0m")
 
     def _carve_with_stack(self, start_x: int, start_y: int,
                           visited: list[list[bool]]) -> None:
