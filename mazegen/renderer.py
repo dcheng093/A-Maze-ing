@@ -37,7 +37,7 @@ FOUR_TWO_PATTERN = [
 
 
 def apply_42(grid: list[list[int]]) -> set[tuple[int, int]]:
-    """finds where the 42 logo should be in the grid and applies it"""
+    """calculates the cells occupied by the 42 logo"""
     height = len(grid)
     width = len(grid[0])
 
@@ -55,6 +55,7 @@ def apply_42(grid: list[list[int]]) -> set[tuple[int, int]]:
 
 
 def lock_42_walls(grid: list[list[int]], cells: set[tuple[int, int]]) -> None:
+    """close all walls around cells belonging to the 42 pattern"""
     N, E, S, W = 1, 2, 4, 8
 
     for x, y in cells:
@@ -69,7 +70,17 @@ def render_ascii(
                 special: Optional[set[tuple[int, int]]] = None,
                 exit_pos: Optional[tuple[int, int]] = None
                 ) -> None:
-    """renders maze using ascii characters"""
+    """
+    renders maze using ascii characters
+
+    args:
+    grid: maze grid represented using wall bitmasks
+    path_coords: optional coordinates of the solution path
+    color_mode: color index used for wall rendering
+    player: optional player coordinate
+    special: optional set of special cells such as the 42 logo
+    exit_pos: optional exit coordinate
+    """
     height = len(grid)
     width = len(grid[0])
     color = COLORS[color_mode]

@@ -30,7 +30,12 @@ class MazeGenerator:
         seed: int | None = None,
         perfect: bool = False,
     ) -> None:
-        """initialize maze generator with the given dimensions and settings"""
+        """
+        generate maze layouts using randomized backtracking
+
+        the generator supports perfect mazes and Pac-Man style
+        mazes with loops
+        """
         if width <= 0 or height <= 0:
             raise ValueError("Maze dimensions must be positive")
 

@@ -24,6 +24,7 @@ DIR_CHAR = {N: "N", E: "E", S: "S", W: "W"}
 def path_to_coords(
         start: tuple[int, int],
         path: str) -> list[tuple[int, int]]:
+    """keeps track of moves and returns"""
     x, y = start
     coords = [(x, y)]
 
