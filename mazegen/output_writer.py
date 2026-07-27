@@ -24,7 +24,7 @@ def write_maze(
         with open(filename, "w", encoding="utf-8") as f:
             # grid
             for row in grid:
-                line = "".join(format(cell, "X") for cell in row)
+                line = "".join(format(cell, "x") for cell in row)
                 f.write(line + "\n")
             f.write("\n")
 
