@@ -12,17 +12,13 @@
 
 NAME = a_maze_ing.py
 CONFIG_FILE = default_config.txt
-CUSTOM_CONFIG = config_big.txt
-TEST = config_small.txt
+CUSTOM_CONFIG = config.txt
 
 run:
 	@python3 $(NAME) $(CONFIG_FILE)
 
 custom:
 	@python3 $(NAME) $(CUSTOM_CONFIG)
-
-test:
-	@python3 $(NAME) $(TEST)
 
 install:
 	pip install flake8 mypy
@@ -31,12 +27,12 @@ debug:
 	@python3 -m pdb $(NAME) $(CONFIG_FILE)
 
 lint:
-	flake8 .
-	mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
+	flake8 a_maze_ing.py mazegen/.
+	mypy a_maze_ing.py mazegen/. --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
 
 lint-strict:
-	flake8 .
-	mypy . --strict
+	flake8 a_maze_ing.py mazegen/.
+	mypy a_maze_ing.py mazegen/. --strict
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
@@ -47,4 +43,4 @@ fclean:
 	rm -rf .mypy_cache build dist *.egg-info
 	rm -rf maze_*.txt
 
-.PHONY: install run debug lint lint-strict clean poop
+.PHONY: install run debug lint lint-strict clean fclean custom
