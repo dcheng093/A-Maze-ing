@@ -30,6 +30,7 @@ class MazeGenerator:
         seed: int | None = None,
         perfect: bool = False,
     ) -> None:
+        """initialize maze generator with the given dimensions and settings"""
         if width <= 0 or height <= 0:
             raise ValueError("Maze dimensions must be positive")
 
@@ -45,7 +46,7 @@ class MazeGenerator:
         ]
 
     def generate(self) -> list[list[int]]:
-        """generate and return the maze grid"""
+        """generate (optionally braid it) and return the maze grid"""
         visited = [[False] * self.width for _ in range(self.height)]
 
         if self.width > 12 and self.height > 7:
@@ -134,6 +135,7 @@ class MazeGenerator:
             stack.append((nx, ny, OPPOSITE[direction]))
 
     def _find_dead_ends(self) -> list[tuple[int, int]]:
+        """return a list of cells that have exactly one open passage"""
         result = []
 
         for y in range(self.height):
@@ -147,6 +149,7 @@ class MazeGenerator:
         return result
 
     def _dead_end_walls(self, x: int, y: int) -> list[int]:
+        """return the closed walls that can be opened from the given cell"""
         walls = []
 
         for direction in DIRECTIONS:
@@ -177,6 +180,7 @@ class MazeGenerator:
                 self._open_passage(x, y, edge)
 
     def _cell_openings(self, x: int, y: int) -> int:
+        """return the number of open passages connected to a cell"""
         openings = 0
         for direction in DIRECTIONS:
             if not (self.grid[y][x] & direction):
@@ -184,47 +188,17 @@ class MazeGenerator:
         return openings
 
     def _open_passage(self, x: int, y: int, direction: int) -> None:
+        """remove the wall between a cell and its neighboring cell"""
         nx = x + DX[direction]
         ny = y + DY[direction]
         self.grid[y][x] &= ~direction
         self.grid[ny][nx] &= ~OPPOSITE[direction]
 
     def _apply_special_cells(self) -> None:
+        """lock the walls surrounding the reserved 42 pattern cells"""
         if self.special_cells:
             lock_42_walls(self.grid, self.special_cells)
 
     def _in_bounds(self, x: int, y: int) -> bool:
-        """"checks whether coordinates are within a valid range
-            relative to the grid dimensions
-        """
+        """returns true if the coordinates lie within the maze boundaries"""
         return 0 <= x < self.width and 0 <= y < self.height
-
-    def _dead_end_count(self) -> int:
-        count = 0
-        for y in range(self.height):
-            for x in range(self.width):
-                if (x, y) in self.special_cells:
-                    continue
-                openings = 0
-                for direction in DIRECTIONS:
-                    if not (self.grid[y][x] & direction):
-                        openings += 1
-                if openings == 1:
-                    count += 1
-        return count
-
-    def _loop_count(self) -> int:
-        nodes = 0
-        edges = 0
-        for y in range(self.height):
-            for x in range(self.width):
-                if (x, y) in self.special_cells:
-                    continue
-                nodes += 1
-                if x + 1 < self.width and not (self.grid[y][x] & E) and \
-                        not (self.grid[y][x + 1] & W):
-                    edges += 1
-                if y + 1 < self.height and not (self.grid[y][x] & S) and \
-                        not (self.grid[y + 1][x] & N):
-                    edges += 1
-        return edges - nodes + 1
