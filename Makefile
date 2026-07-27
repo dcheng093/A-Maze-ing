@@ -18,7 +18,7 @@ CONFIG_FILE = default_config.txt
 CUSTOM_CONFIG = config.txt
 
 install:
-	$(PYTHON) -m venv $(VENV)
+	@python3 -m venv $(VENV)
 	$(PIP) install --upgrade pip
 	$(PIP) install mypy flake8 build
 
@@ -29,13 +29,13 @@ reinstall: build
 	$(PIP) install --force-reinstall mazegen-1.0.0-py3-none-any.whl
 
 run:
-	$(PYTHON) $(NAME) $(CONFIG_FILE)
+	@python3 $(NAME) $(CONFIG_FILE)
 
 custom:
-	$(PYTHON) $(NAME) $(CUSTOM_CONFIG)
+	@python3 $(NAME) $(CUSTOM_CONFIG)
 
 debug:
-	$(PYTHON) -m pdb $(NAME) $(CONFIG_FILE)
+	@python3 -m pdb $(NAME) $(CONFIG_FILE)
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
@@ -43,7 +43,7 @@ clean:
 
 fclean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
-	rm -rf .mypy_cache build dist *.egg-info maze_*.txt output_*.txt venv mazegen-1.0.0-py3-none-any.whl mazegen-1.0.0.tar.gz
+	rm -rf .mypy_cache build dist *.egg-info maze_*.txt output_*.txt venv mazegen-1.0.0-py3-none-any.whl mazegen-1.0.0.tar.gz mazegen-1.0.0
 
 lint:
 	flake8 a_maze_ing.py mazegen/.
