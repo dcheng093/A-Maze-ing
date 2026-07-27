@@ -38,6 +38,7 @@ class MazeGenerator:
         self.random = random.Random(seed)
         self.perfect = perfect
         self.special_cells: set[tuple[int, int]] = set()
+        # initializes grid with all cells fully walled off
         self.grid: list[list[int]] = [
             [N | E | S | W for _ in range(width)]
             for _ in range(height)
@@ -193,6 +194,8 @@ class MazeGenerator:
             lock_42_walls(self.grid, self.special_cells)
 
     def _in_bounds(self, x: int, y: int) -> bool:
+        """"checks whether coordinates are within a valid range
+            relative to the grid dimensions"""
         return 0 <= x < self.width and 0 <= y < self.height
 
     def _dead_end_count(self) -> int:
