@@ -53,4 +53,4 @@ lint-strict:
 	flake8 a_maze_ing.py mazegen/.
 	mypy a_maze_ing.py mazegen/. --strict
 
-.PHONY: install build reinstall run custom debug clean fclean lint lint-strict 
+.PHONY: install build reinstall run custom debug clean fclean lint lint-strict
