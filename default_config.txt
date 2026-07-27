@@ -2,5 +2,5 @@ WIDTH=40
 HEIGHT=20
 ENTRY=0,0
 EXIT=39,19
-OUTPUT_FILE=maze_medium.txt
+OUTPUT_FILE=output_maze.txt
 PERFECT=False
