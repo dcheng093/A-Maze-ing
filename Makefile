@@ -14,17 +14,21 @@ NAME = a_maze_ing.py
 CONFIG_FILE = default_config.txt
 CUSTOM_CONFIG = config.txt
 
+install:
+	pip install flake8 mypy
+
 run:
 	@python3 $(NAME) $(CONFIG_FILE)
 
 custom:
 	@python3 $(NAME) $(CUSTOM_CONFIG)
 
-install:
-	pip install flake8 mypy
-
 debug:
 	@python3 -m pdb $(NAME) $(CONFIG_FILE)
+
+clean:
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	rm -rf .mypy_cache build dist *.egg-info maze_*.txt output_*.txt
 
 lint:
 	flake8 a_maze_ing.py mazegen/.
@@ -34,12 +38,4 @@ lint-strict:
 	flake8 a_maze_ing.py mazegen/.
 	mypy a_maze_ing.py mazegen/. --strict
 
-clean:
-	find . -type d -name "__pycache__" -exec rm -rf {} +
-	rm -rf .mypy_cache build dist *.egg-info
-
-fclean:
-	find . -type d -name "__pycache__" -exec rm -rf {} +
-	rm -rf .mypy_cache build dist *.egg-info maze_*.txt output_*.txt
-
-.PHONY: install run debug lint lint-strict clean fclean custom
+.PHONY: install run custom debug clean lint lint-strict
