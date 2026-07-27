@@ -40,7 +40,6 @@ clean:
 
 fclean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
-	rm -rf .mypy_cache build dist *.egg-info
-	rm -rf maze_*.txt
+	rm -rf .mypy_cache build dist *.egg-info maze_*.txt output_*.txt
 
 .PHONY: install run debug lint lint-strict clean fclean custom
