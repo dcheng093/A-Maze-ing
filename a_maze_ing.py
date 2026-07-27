@@ -21,7 +21,7 @@ N, E, S, W = 1, 2, 4, 8
 
 
 def clear_terminal() -> None:
-    # "nt" for windows, others like "posix" are for mac/linux
+    """nt for windows, others like "posix" are for mac/linux"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
