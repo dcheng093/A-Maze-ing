@@ -195,7 +195,8 @@ class MazeGenerator:
 
     def _in_bounds(self, x: int, y: int) -> bool:
         """"checks whether coordinates are within a valid range
-            relative to the grid dimensions"""
+            relative to the grid dimensions
+        """
         return 0 <= x < self.width and 0 <= y < self.height
 
     def _dead_end_count(self) -> int:
