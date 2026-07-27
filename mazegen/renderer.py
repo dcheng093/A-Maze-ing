@@ -36,7 +36,7 @@ FOUR_TWO_PATTERN = [
 ]
 
 
-def apply_42(grid: list[list[int]]) -> set[tuple[int, int]]:
+def get_42_cells(grid: list[list[int]]) -> set[tuple[int, int]]:
     """calculates the cells occupied by the 42 logo"""
     height = len(grid)
     width = len(grid[0])

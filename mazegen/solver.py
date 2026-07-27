@@ -24,7 +24,7 @@ DIR_CHAR = {N: "N", E: "E", S: "S", W: "W"}
 def path_to_coords(
         start: tuple[int, int],
         path: str) -> list[tuple[int, int]]:
-    """keeps track of moves and returns"""
+    """convert a direction path into a list of coordinates"""
     x, y = start
     coords = [(x, y)]
 
@@ -41,7 +41,7 @@ def solve(
         start: tuple[int, int],
         end: tuple[int, int]
         ) -> str:
-    """solves maze using bfs"""
+    """find a path between two cells using breadth-first search"""
     width = len(grid[0])
     height = len(grid)
 

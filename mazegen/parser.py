@@ -15,6 +15,18 @@ from dataclasses import dataclass
 
 @dataclass
 class Config:
+    """
+    store maze generation configuration values
+
+    attributes:
+        width: maze width
+        height: maze height
+        entry: starting coordinates
+        exit: ending coordinates
+        output_file: path for generated maze output file
+        perfect: whether to generate a perfect maze
+        seed: optional random seed
+    """
     width: int
     height: int
     entry: tuple[int, int]
@@ -29,7 +41,7 @@ def parse_config(filepath: str) -> Config:
     data = {}
 
     try:
-        with open(filepath, "r") as f:
+        with open(filepath, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
 

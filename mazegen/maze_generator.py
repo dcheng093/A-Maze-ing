@@ -11,7 +11,7 @@
 # *************************************************************************** #
 
 import random
-from .renderer import apply_42, lock_42_walls
+from .renderer import get_42_cells, lock_42_walls
 
 N, E, S, W = 1, 2, 4, 8
 
@@ -51,11 +51,20 @@ class MazeGenerator:
         ]
 
     def generate(self) -> list[list[int]]:
-        """generate (optionally braid it) and return the maze grid"""
+        """
+        generate and return a maze grid
+
+        the maze is created using randomized backtracking
+        when perfect mode is disabled, additional passages are
+        opened to create loops suitable for Pac-Man style gameplay
+
+        returns:
+            a 2D list containing wall bitmasks for each cell
+        """
         visited = [[False] * self.width for _ in range(self.height)]
 
         if self.width > 12 and self.height > 7:
-            self.special_cells = apply_42(self.grid)
+            self.special_cells = get_42_cells(self.grid)
         else:
             self.special_cells = set()
 
@@ -107,7 +116,10 @@ class MazeGenerator:
 
     def _carve_with_stack(self, start_x: int, start_y: int,
                           visited: list[list[bool]]) -> None:
-        """carve the maze using an explicit stack (recursion depth issues)"""
+        """
+        carve maze using iterative depth-first search with a stack
+        (recursion depth issues)
+        """
         stack: list[tuple[int, int, int]] = [(start_x, start_y, -1)]
         visited[start_y][start_x] = True
 

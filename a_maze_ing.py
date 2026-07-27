@@ -11,7 +11,7 @@
 # *************************************************************************** #
 
 from mazegen.maze_generator import MazeGenerator
-from mazegen.renderer import render_ascii, apply_42, lock_42_walls
+from mazegen.renderer import render_ascii, get_42_cells
 from mazegen.solver import solve, path_to_coords
 from mazegen.parser import parse_config, Config
 from mazegen.output_writer import write_maze
@@ -21,7 +21,8 @@ N, E, S, W = 1, 2, 4, 8
 
 
 def clear_terminal() -> None:
-    """nt for windows, others like "posix" are for mac/linux"""
+    """clear terminal screen depending on operating system"""
+    # nt for windows, others like "posix" are for mac/linux
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
@@ -54,7 +55,7 @@ def build_maze(config: Config) -> tuple[
     temp_grid = [[0 for _ in range(width)]
                  for _ in range(height)
                  ]
-    logo_cells = apply_42(temp_grid)
+    logo_cells = get_42_cells(temp_grid)
     if config.entry in logo_cells:
         raise ValueError("Entry cannot be inside 42 logo")
     if config.exit in logo_cells:
@@ -69,7 +70,6 @@ def build_maze(config: Config) -> tuple[
         )
         grid = gen.generate()
         special_cells = gen.special_cells
-        lock_42_walls(grid, special_cells)
         try:
             path = solve(grid, config.entry, config.exit)
         except ValueError:

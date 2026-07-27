@@ -158,7 +158,7 @@ def dfs(self, x, y, visited):
 Before generation begins, a set of cells forming the **"42" logo** is computed:
 
 ```python
-self.forbidden = apply_42(self.grid)
+self.forbidden = get_42_cells(self.grid)
 ```
 
 These cells are treated as blocked during DFS:

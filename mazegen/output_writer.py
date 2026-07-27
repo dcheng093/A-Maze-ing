@@ -18,7 +18,16 @@ def write_maze(
         exit: tuple[int, int],
         path: str,
         ) -> None:
-    """write maze in required hex format"""
+    """
+    write a maze to a file using hexadecimal wall encoding
+
+    args:
+        filename: output file path
+        grid: maze grid represented as wall bitmasks
+        entry: maze entry coordinate
+        exit: maze exit coordinate
+        path: solution path represented as directions
+    """
 
     try:
         with open(filename, "w", encoding="utf-8") as f:
