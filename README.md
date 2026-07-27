@@ -27,7 +27,7 @@ Table of contents
   - [Planning & Evolution](#planning--evolution)
   - [What Worked Well](#what-worked-well)
   - [What Could Be Improved](#what-could-be-improved)
-  - [Tools Used](#tools-used)
+  - [Resources Used](#tools-used)
 - [Use of AI](#use-of-ai)
 
 
@@ -263,13 +263,13 @@ Final result:
 
 ### What Could Be Improved
 
-- Recursive DFS may hit recursion limits on large mazes
+- Formatting and structure could be better
 - Imperfect maze generation could be expanded further
 - Rendering performance could be optimized for larger grids
 
 ---
 
-### Tools Used
+### Resources Used
 
 - Python 3.10+
 - `mypy` for static type checking

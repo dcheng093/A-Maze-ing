@@ -112,7 +112,7 @@ def main() -> None:
         while True:
             # render current state
             clear_terminal()
-            if config.width < 12 and config.height < 7:
+            if config.width <= 12 and config.height <= 7:
                 _warn_small_maze()
             render_ascii(
                         grid,
