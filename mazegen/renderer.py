@@ -56,8 +56,6 @@ def get_42_cells(grid: list[list[int]]) -> set[tuple[int, int]]:
 
 def lock_42_walls(grid: list[list[int]], cells: set[tuple[int, int]]) -> None:
     """close all walls around cells belonging to the 42 pattern"""
-    N, E, S, W = 1, 2, 4, 8
-
     for x, y in cells:
         grid[y][x] = N | E | S | W
 

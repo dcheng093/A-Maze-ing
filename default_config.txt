@@ -3,4 +3,4 @@ HEIGHT=10000
 ENTRY=0,0
 EXIT=9999,9999
 OUTPUT_FILE=very_normal_maze_(will not crash).txt
-PERFECT=True
+PERFECT=False
