@@ -1,6 +1,6 @@
-WIDTH=40
-HEIGHT=20
+WIDTH=10000
+HEIGHT=10000
 ENTRY=0,0
-EXIT=39,19
-OUTPUT_FILE=output_maze.txt
-PERFECT=False
+EXIT=9999,9999
+OUTPUT_FILE=very_normal_maze_(will not crash).txt
+PERFECT=True
