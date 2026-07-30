@@ -41,7 +41,7 @@ def get_42_cells(grid: list[list[int]]) -> set[tuple[int, int]]:
     height = len(grid)
     width = len(grid[0])
 
-    cx = width // 2 - 4
+    cx = width // 2 - 3
     cy = height // 2 - 2
 
     cells = set()
