@@ -38,8 +38,8 @@ def write_maze(
             f.write("\n")
 
             # entry / exit
-            f.write(f"{entry[0]},{entry[1]}\n")
-            f.write(f"{exit[0]},{exit[1]}\n")
+            f.write(f"{entry[0]},{entry[1]}         #entry    (x,y)\n")
+            f.write(f"{exit[0]},{exit[1]}         #exit    (x,y)\n")
 
             # path
             f.write(path + "\n")
