@@ -98,8 +98,18 @@ def parse_config(filepath: str) -> Config:
     if width <= 0 or height <= 0:
         raise ValueError("WIDTH and HEIGHT must be positive")
 
+    if not perfect and (width < 3 or height < 3):
+        raise ValueError(
+            "PERFECT = False requires a maze of at least 3x3"
+        )
+
     if entry == exit_:
-        raise ValueError("ENTRY and EXIT cannot be the same")
+        if perfect:
+            raise ValueError("ENTRY and EXIT cannot be the same")
+        raise ValueError(
+            "In PERFECT = False mode, the player starts at the maze center"
+            ". Choose an EXIT that is not the center cell"
+            )
 
     for x, y in [entry, exit_]:
         if not (0 <= x < width and 0 <= y < height):
