@@ -38,6 +38,10 @@ class Config:
 
 def parse_config(filepath: str) -> Config:
     """parse and validate config file"""
+
+    if not filepath.lower().endswith("txt"):
+        raise ValueError("Config file must have a .txt extension")
+
     data = {}
 
     try:
@@ -82,6 +86,9 @@ def parse_config(filepath: str) -> Config:
         exit_ = (tx, ty)
 
         output_file = data["OUTPUT_FILE"]
+
+        if not output_file.lower().endswith(".txt"):
+            raise ValueError("OUTPUT_FILE must have a .txt extension")
 
         perfect_value = data["PERFECT"].lower()
 
