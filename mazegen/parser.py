@@ -83,7 +83,12 @@ def parse_config(filepath: str) -> Config:
 
         output_file = data["OUTPUT_FILE"]
 
-        perfect = data["PERFECT"].lower() == "true"
+        perfect_value = data["PERFECT"].lower()
+
+        if perfect_value not in ("true", "false"):
+            raise ValueError("PERFECT must be True or False")
+
+        perfect = perfect_value == "true"
 
         if not perfect:
             entry = (width // 2, height // 2)
