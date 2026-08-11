@@ -39,11 +39,11 @@ debug:
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
-	rm -rf .mypy_cache build dist *.egg-info maze_*.txt output_*.txt
+	rm -rf .mypy_cache build dist *.egg-info maze.txt output_*.txt
 
 fclean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
-	rm -rf .mypy_cache build dist *.egg-info maze_*.txt output_*.txt venv mazegen-1.0.0-py3-none-any.whl mazegen-1.0.0.tar.gz mazegen-1.0.0
+	rm -rf .mypy_cache build dist *.egg-info maze.txt output_*.txt venv mazegen-1.0.0-py3-none-any.whl mazegen-1.0.0.tar.gz mazegen-1.0.0
 
 lint:
 	flake8 a_maze_ing.py mazegen/.
