@@ -92,7 +92,7 @@ def render_ascii(
         for x in range(width):
             is_42 = special and (x, y) in special
             if player == (x, y):
-                line1 += " P "
+                line1 += f"{COLORS[2]} P {reset}"
             elif exit_pos == (x, y):
                 line1 += f"{COLORS[3]} X {reset}"
             elif is_42:
