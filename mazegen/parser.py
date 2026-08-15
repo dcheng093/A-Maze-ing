@@ -57,7 +57,7 @@ def parse_config(filepath: str) -> Config:
                     raise ValueError(f"Invalid line: {line}")
 
                 key, value = line.split("=", 1)
-                data[key.strip()] = value.strip()
+                data[key.strip().upper()] = value.strip()
 
     except FileNotFoundError:
         raise ValueError(f"Config file not found: {filepath}")
