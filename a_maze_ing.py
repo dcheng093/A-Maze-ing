@@ -51,7 +51,7 @@ def build_maze(config: Config) -> tuple[
     if not in_bounds(config.exit):
         raise ValueError(f"Exit {config.exit} is out of bounds")
 
-    # calculates where 42 logo should be
+    # calculates where 42 logo should be (if grid big enough)
     if width > 12 and height > 7:
         temp_grid = [[0 for _ in range(width)]
                      for _ in range(height)
