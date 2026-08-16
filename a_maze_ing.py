@@ -52,14 +52,15 @@ def build_maze(config: Config) -> tuple[
         raise ValueError(f"Exit {config.exit} is out of bounds")
 
     # calculates where 42 logo should be
-    temp_grid = [[0 for _ in range(width)]
-                 for _ in range(height)
-                 ]
-    logo_cells = get_42_cells(temp_grid)
-    if config.entry in logo_cells:
-        raise ValueError("Entry cannot be inside 42 logo")
-    if config.exit in logo_cells:
-        raise ValueError("Exit cannot be inside 42 logo")
+    if width > 12 and height > 7:
+        temp_grid = [[0 for _ in range(width)]
+                     for _ in range(height)
+                     ]
+        logo_cells = get_42_cells(temp_grid)
+        if config.entry in logo_cells:
+            raise ValueError("Entry cannot be inside 42 logo")
+        if config.exit in logo_cells:
+            raise ValueError("Exit cannot be inside 42 logo")
 
     while True:
         gen = MazeGenerator(
