@@ -36,16 +36,16 @@ class Config:
     seed: int | None = None
 
 
-def parse_config(filepath: str) -> Config:
+def parse_config(file: str) -> Config:
     """parse and validate config file"""
 
-    if not filepath.lower().endswith("txt"):
+    if not file.lower().endswith("txt"):
         raise ValueError("Config file must have a .txt extension")
 
     data = {}
 
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
+        with open(file, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
 
@@ -60,7 +60,7 @@ def parse_config(filepath: str) -> Config:
                 data[key.strip().upper()] = value.strip()
 
     except FileNotFoundError:
-        raise ValueError(f"Config file not found: {filepath}")
+        raise ValueError(f"Config file not found: {file}")
 
     # requirements
     required = ["WIDTH", "HEIGHT", "ENTRY", "EXIT", "OUTPUT_FILE", "PERFECT"]
