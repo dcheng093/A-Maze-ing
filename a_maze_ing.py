@@ -17,7 +17,7 @@ from mazegen.parser import parse_config, Config
 from mazegen.output_writer import write_maze
 import sys
 import os
-N, E, S, W = 1, 2, 4, 8
+import random
 
 
 def clear_terminal() -> None:
@@ -31,13 +31,13 @@ def _warn_small_maze() -> None:
     print("\033[31mWARNING: Maze too small for 42 pattern\033[0m")
 
 
-def build_maze(config: Config) -> tuple[
-            list[list[int]],
-            str,
-            list[tuple[int, int]],
-            set[tuple[int, int]]
-        ]:
-    """generates maze && solves it"""
+def build_maze(config: Config, seed: int | None = None) -> tuple[
+    list[list[int]],
+    str,
+    list[tuple[int, int]],
+    set[tuple[int, int]]
+]:
+    """generates a maze and calculate its solution path"""
 
     def in_bounds(p: tuple[int, int]) -> bool:
         x, y = p
@@ -64,7 +64,7 @@ def build_maze(config: Config) -> tuple[
         gen = MazeGenerator(
             config.width,
             config.height,
-            seed=config.seed,
+            seed=seed,
             perfect=config.perfect,
         )
         grid = gen.generate()
@@ -88,9 +88,9 @@ def main() -> None:
             else "default_config.txt"
            )
         config = parse_config(config_file)
-
-        grid, path, coords, special = build_maze(config)
-        player = config.entry
+        seed_rng = random.Random(config.seed)
+        maze_seed = seed_rng.randrange(2**32)
+        grid, path, coords, special = build_maze(config, maze_seed)
 
         try:
             write_maze(
@@ -110,13 +110,13 @@ def main() -> None:
         while True:
             # render current state
             clear_terminal()
-            if config.width <= 12 and config.height <= 7:
+            if config.width <= 12 or config.height <= 7:
                 _warn_small_maze()
             render_ascii(
                         grid,
                         coords if show_path else None,
                         color_mode,
-                        player,
+                        config.entry,
                         special,
                         config.exit
                         )
@@ -132,8 +132,8 @@ def main() -> None:
                 break
 
             elif cmd == "r":
-                grid, path, coords, special = build_maze(config)
-                player = config.entry
+                maze_seed = seed_rng.randrange(2**32)
+                grid, path, coords, special = build_maze(config, maze_seed)
 
                 try:
                     write_maze(
@@ -146,8 +146,6 @@ def main() -> None:
                 except RuntimeError as e:
                     print(f"Error: {e}")
                     break
-
-                clear_terminal()
 
             elif cmd == "p":
                 show_path = not show_path
