@@ -14,8 +14,7 @@ VENV = venv
 PIP = $(VENV)/bin/pip
 PYTHON = $(VENV)/bin/python3
 NAME = a_maze_ing.py
-CONFIG_FILE = default_config.txt
-CUSTOM_CONFIG = config.txt
+CONFIG_FILE = config.txt
 
 install:
 	@python3 -m venv $(VENV)
@@ -30,9 +29,6 @@ reinstall: build
 
 run:
 	@python3 $(NAME) $(CONFIG_FILE)
-
-custom:
-	@python3 $(NAME) $(CUSTOM_CONFIG)
 
 debug:
 	@python3 -m pdb $(NAME) $(CONFIG_FILE)

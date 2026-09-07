@@ -57,7 +57,11 @@ def parse_config(file: str) -> Config:
                     raise ValueError(f"Invalid line: {line}")
 
                 key, value = line.split("=", 1)
-                data[key.strip().upper()] = value.strip()
+
+                if key != key.rstrip() or value != value.lstrip():
+                    raise ValueError(f"Invalid line: {line}\nEa"
+                                     "ch line must be in the KEY=VALUE format")
+                data[key.upper()] = value
 
     except FileNotFoundError:
         raise ValueError(f"Config file not found: {file}")
@@ -109,6 +113,9 @@ def parse_config(file: str) -> Config:
     # validation
     if width <= 0 or height <= 0:
         raise ValueError("WIDTH and HEIGHT must be positive")
+
+    if width > 1000 or height > 1000:
+        raise ValueError("stop")
 
     if not perfect and (width < 3 or height < 3):
         raise ValueError(

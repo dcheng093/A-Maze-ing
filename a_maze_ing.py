@@ -85,7 +85,7 @@ def main() -> None:
         config_file = (
             sys.argv[1]
             if len(sys.argv) == 2
-            else "default_config.txt"
+            else "config.txt"
            )
         config = parse_config(config_file)
         seed_rng = random.Random(config.seed)
