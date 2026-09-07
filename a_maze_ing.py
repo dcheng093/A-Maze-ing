@@ -93,7 +93,7 @@ def main() -> None:
 
         grid, path, coords, special = build_maze(config)
         player = config.entry
-        current_coords = coords.copy()
+        current_coords = coords
 
         try:
             write_maze(
