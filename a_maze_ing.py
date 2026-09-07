@@ -68,13 +68,13 @@ def build_maze(config: Config) -> tuple[
             perfect=config.perfect,
         )
         grid = gen.generate()
-        special_cells = gen.special_cells
+
         try:
             path = solve(grid, config.entry, config.exit)
         except ValueError:
             continue  # unsolvable maze == regenerate
         coords = path_to_coords(config.entry, path)
-        return grid, path, coords, special_cells
+        return grid, path, coords, gen.special_cells
 
 
 def main() -> None:
