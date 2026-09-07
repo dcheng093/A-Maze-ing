@@ -38,12 +38,10 @@ def build_maze(config: Config) -> tuple[
             set[tuple[int, int]]
         ]:
     """generates maze && solves it"""
-    width = config.width
-    height = config.height
 
     def in_bounds(p: tuple[int, int]) -> bool:
         x, y = p
-        return 0 <= x < width and 0 <= y < height
+        return 0 <= x < config.width and 0 <= y < config.height
 
     if not in_bounds(config.entry):
         raise ValueError(f"Entry {config.entry} is out of bounds")
@@ -52,9 +50,9 @@ def build_maze(config: Config) -> tuple[
         raise ValueError(f"Exit {config.exit} is out of bounds")
 
     # calculates where 42 logo should be (if grid big enough)
-    if width > 12 and height > 7:
-        temp_grid = [[0 for _ in range(width)]
-                     for _ in range(height)
+    if config.width > 12 and config.height > 7:
+        temp_grid = [[0 for _ in range(config.width)]
+                     for _ in range(config.height)
                      ]
         logo_cells = get_42_cells(temp_grid)
         if config.entry in logo_cells:
@@ -64,8 +62,8 @@ def build_maze(config: Config) -> tuple[
 
     while True:
         gen = MazeGenerator(
-            width,
-            height,
+            config.width,
+            config.height,
             seed=config.seed,
             perfect=config.perfect,
         )
@@ -93,7 +91,6 @@ def main() -> None:
 
         grid, path, coords, special = build_maze(config)
         player = config.entry
-        current_coords = coords
 
         try:
             write_maze(
@@ -117,7 +114,7 @@ def main() -> None:
                 _warn_small_maze()
             render_ascii(
                         grid,
-                        current_coords if show_path else None,
+                        coords if show_path else None,
                         color_mode,
                         player,
                         special,
@@ -137,7 +134,6 @@ def main() -> None:
             elif cmd == "r":
                 grid, path, coords, special = build_maze(config)
                 player = config.entry
-                current_coords = coords.copy()
 
                 try:
                     write_maze(
