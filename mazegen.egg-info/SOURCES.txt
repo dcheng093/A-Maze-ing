@@ -4,6 +4,7 @@ README.md
 a_maze_ing.py
 default_config.txt
 pyproject.toml
+mazegen/README.md
 mazegen/__init__.py
 mazegen/maze_generator.py
 mazegen/output_writer.py
