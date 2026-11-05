@@ -65,6 +65,8 @@ def parse_config(file: str) -> Config:
 
     except FileNotFoundError:
         raise ValueError(f"Config file not found: {file}")
+    except OSError as e:
+        raise ValueError(f"Cannot read config file {file}: {e.strerror}")
 
     # requirements
     required = ["WIDTH", "HEIGHT", "ENTRY", "EXIT", "OUTPUT_FILE", "PERFECT"]

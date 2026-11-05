@@ -85,7 +85,7 @@ def main() -> None:
         config_file = (
             sys.argv[1]
             if len(sys.argv) == 2
-            else "config.txt"
+            else "default_config.txt"
            )
         config = parse_config(config_file)
         seed_rng = random.Random(config.seed)
@@ -126,7 +126,7 @@ def main() -> None:
 
             print("\n[r] regenerate  [p] toggle path  "
                   "[c] colour  [q] quit")
-            cmd = input("> ").strip().lower()
+            cmd = _read_command()
 
             if cmd == "q":
                 break
@@ -156,6 +156,19 @@ def main() -> None:
 
     except ValueError as e:
         print("Error:", e)
+    except KeyboardInterrupt:
+        print("\nInterrupted, exiting.")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+
+def _read_command() -> str:
+    """read one menu command; Ctrl+C / Ctrl+D (EOF) behave like quit"""
+    try:
+        return input("> ").strip().lower()
+    except (EOFError, KeyboardInterrupt):
+        print()
+        return "q"
 
 
 if __name__ == "__main__":

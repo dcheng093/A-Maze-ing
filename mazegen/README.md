@@ -27,7 +27,9 @@ This separation allows the maze-generation logic to be reused without depending 
 From the root of the project, the package can be installed with:
 
 ```bash
-make build
+make install    # venv with the build tools
+make build      # creates mazegen-1.0.0-py3-none-any.whl and mazegen-1.0.0.tar.gz
+pip install mazegen-1.0.0-py3-none-any.whl
 ```
 
 After installation, the generator can be imported normally:
@@ -52,7 +54,7 @@ The returned grid can then be passed to another component, such as a solver or r
 ### `MazeGenerator`
 
 The main class exposed by the package.
-    MazeGenerator(width, height, seed=None, perfect=True)
+    MazeGenerator(width, height, seed=None, perfect=False)
 
 #### Parameters
 
@@ -193,7 +195,7 @@ During generation, the DFS traversal checks whether a neighbouring cell belongs 
 
 If it does, the cell is skipped:
 
-    if (nx, ny) in self.forbidden:
+    if (nx, ny) in self.special_cells:
         continue
 
 This prevents the maze-generation algorithm from carving passages through the cells occupied by the logo.
@@ -208,13 +210,13 @@ The generator is intentionally independent from the other parts of the project.
 
 For example, the returned grid can be used by a solver:
 
-    from mazegen.maze_generator import MazeGenerator
+    from mazegen import MazeGenerator, solve
 
     generator = MazeGenerator(20, 10)
     maze = generator.generate()
 
-    # Pass maze to another component
-    solution = solve(maze)
+    # shortest path from the top-left to the bottom-right cell, e.g. "SSEENE..."
+    solution = solve(maze, (0, 0), (19, 9))
 
 Or it can be passed to a renderer:
 
@@ -266,8 +268,12 @@ The package follows a few simple design principles:
 ## Project Structure
 
     mazegen/
-    ├── __init__.py
-    └── maze_generator.py
+    ├── __init__.py         # public API: MazeGenerator, solve, path_to_coords, render_ascii
+    ├── maze_generator.py   # MazeGenerator (DFS + braiding + 42 reservation)
+    ├── solver.py           # BFS shortest path
+    ├── renderer.py         # 42 pattern + ASCII rendering
+    ├── parser.py           # config file parsing
+    └── output_writer.py    # hexadecimal output file
 
 The package is intentionally small. Its purpose is to provide the core maze-generation functionality while leaving application-specific behaviour to the main A-Maze-ing project.
 
