@@ -1,0 +1,16 @@
+LICENSE.md
+Makefile
+README.md
+a_maze_ing.py
+default_config.txt
+pyproject.toml
+mazegen/__init__.py
+mazegen/maze_generator.py
+mazegen/output_writer.py
+mazegen/parser.py
+mazegen/renderer.py
+mazegen/solver.py
+mazegen.egg-info/PKG-INFO
+mazegen.egg-info/SOURCES.txt
+mazegen.egg-info/dependency_links.txt
+mazegen.egg-info/top_level.txt
