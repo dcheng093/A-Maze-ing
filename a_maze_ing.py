@@ -22,8 +22,8 @@ import random
 
 def clear_terminal() -> None:
     """clear terminal screen depending on operating system"""
-    # nt for windows, others like "posix" are for mac/linux
-    os.system('cls' if os.name == 'nt' else 'clear')
+    sys.stdout.write("\033[H\033[2J")
+    sys.stdout.flush()
 
 
 def _warn_small_maze() -> None:
