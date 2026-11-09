@@ -16,7 +16,6 @@ from mazegen.solver import solve, path_to_coords
 from mazegen.parser import parse_config, Config
 from mazegen.output_writer import write_maze
 import sys
-import os
 import random
 
 
