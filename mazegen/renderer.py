@@ -83,6 +83,7 @@ def render_ascii(
     width = len(grid[0])
     color = COLORS[color_mode]
     reset = "\033[0m"
+    path_set = set(path_coords) if path_coords else set()
     print(color + "+" + "---+" * width + reset)
 
     for y in range(height):
@@ -97,7 +98,7 @@ def render_ascii(
                 line1 += f"{COLORS[3]} X {reset}"
             elif is_42:
                 line1 += f"{COLORS[3]}███{reset}"
-            elif path_coords and (x, y) in path_coords:
+            elif (x, y) in path_set:
                 line1 += f"{COLORS[4]} . {reset}"
             else:
                 line1 += "   "
