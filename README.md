@@ -372,8 +372,8 @@ Each component (generation, solving, rendering) can be used independently.
 ### Team Members
 
 - **dcheng**
-  - Core implementation (maze generation, solver, rendering)
-  - Project structure and architecture
+  - Maze generation, solver, main file
+  - Parser, renderer, output file
 
 - **asyeo**
   - Testing, debugging, and validation
