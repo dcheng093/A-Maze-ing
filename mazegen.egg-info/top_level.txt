@@ -1,2 +1,1 @@
-a_maze_ing
 mazegen

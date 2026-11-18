@@ -373,11 +373,9 @@ Each component (generation, solving, rendering) can be used independently.
 
 - **dcheng**
   - Maze generation, solver, main file
-  - Parser, renderer, output file
-
+  
 - **asyeo**
-  - Testing, debugging, and validation
-  - Feedback and feature suggestions
+  - Parser, renderer, output file
 
 ---
 

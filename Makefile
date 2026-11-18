@@ -22,6 +22,7 @@ install:
 	$(PIP) install mypy flake8 build
 
 build:
+	rm -rf build *.egg-info
 	$(PYTHON) -m build --outdir .
 
 reinstall: build
